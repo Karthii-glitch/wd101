@@ -105,11 +105,8 @@
             acceptTerms: acceptTerms
         };
 
-        // Get existing data from localStorage, or initialize an empty array
         let savedData = localStorage.getItem('userData');
         savedData = savedData ? JSON.parse(savedData) : [];
-        
-        // Push new data to the array and save back to localStorage
         savedData.push(userData);
         localStorage.setItem('userData', JSON.stringify(savedData));
 
