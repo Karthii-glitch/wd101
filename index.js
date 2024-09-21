@@ -42,11 +42,27 @@ document.getElementById('userForm').addEventListener('submit', function (event) 
     savedData.push(userData);
     localStorage.setItem('userData', JSON.stringify(savedData));
 
-    loadSavedData(); // Load data to the table after saving
+    // Load saved data to the table immediately after submitting
+    addRowToTable(userData);
+
     document.getElementById('userForm').reset(); // Reset the form
 });
 
-// Function to load saved data from localStorage into the table
+// Function to add a single row to the table
+function addRowToTable(user) {
+    let tableBody = document.querySelector('#dataTable tbody');
+    let row = document.createElement('tr');
+    row.innerHTML = `
+        <td>${user.name}</td>
+        <td>${user.email}</td>
+        <td>${user.password}</td>
+        <td>${user.dob}</td>
+        <td>${user.acceptTerms ? 'Yes' : 'No'}</td>
+    `;
+    tableBody.appendChild(row);
+}
+
+// Function to load all saved data from localStorage into the table
 function loadSavedData() {
     let savedData = localStorage.getItem('userData');
     savedData = savedData ? JSON.parse(savedData) : [];
@@ -54,16 +70,9 @@ function loadSavedData() {
     let tableBody = document.querySelector('#dataTable tbody');
     tableBody.innerHTML = ''; // Clear existing table content
 
+    // Loop through all saved data and add rows to the table
     savedData.forEach(function (user) {
-        let row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${user.name}</td>
-            <td>${user.email}</td>
-            <td>${user.password}</td>
-            <td>${user.dob}</td>
-            <td>${user.acceptTerms ? 'Yes' : 'No'}</td>
-        `;
-        tableBody.appendChild(row);
+        addRowToTable(user);
     });
 }
 
