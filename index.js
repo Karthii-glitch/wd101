@@ -1,33 +1,5 @@
-// Create the form dynamically using JavaScript
-const formContainer = document.getElementById('formContainer');
-
-const form = document.createElement('form');
-form.id = 'userForm';
-
-form.innerHTML = `
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" required><br><br>
-
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" required><br><br>
-
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" required><br><br>
-
-    <label for="dob">Date of Birth</label>
-    <input type="date" id="dob" name="dob" required><br><br>
-
-    <label for="acceptTerms">Accept Terms & Conditions</label>
-    <input type="checkbox" id="acceptTerms" name="acceptTerms" required><br><br>
-
-    <button type="submit">Submit</button>
-    <div class="error" id="errorMessage">Please fill out all fields correctly.</div>
-`;
-
-formContainer.appendChild(form);
-
-// Handle form submission and validation
-document.getElementById('userForm').addEventListener('submit', function(event) {
+// Add event listener to handle form submission
+document.getElementById('userForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent form from submitting normally
 
     let name = document.getElementById('name').value;
@@ -62,8 +34,11 @@ document.getElementById('userForm').addEventListener('submit', function(event) {
         acceptTerms: acceptTerms
     };
 
+    // Get existing data from localStorage, or initialize an empty array
     let savedData = localStorage.getItem('userData');
     savedData = savedData ? JSON.parse(savedData) : [];
+
+    // Push new data to the array and save back to localStorage
     savedData.push(userData);
     localStorage.setItem('userData', JSON.stringify(savedData));
 
@@ -79,7 +54,7 @@ function loadSavedData() {
     let tableBody = document.querySelector('#dataTable tbody');
     tableBody.innerHTML = ''; // Clear existing table content
 
-    savedData.forEach(function(user) {
+    savedData.forEach(function (user) {
         let row = document.createElement('tr');
         row.innerHTML = `
             <td>${user.name}</td>
@@ -93,6 +68,6 @@ function loadSavedData() {
 }
 
 // Load saved data when the page is loaded
-window.onload = function() {
+window.onload = function () {
     loadSavedData();
 };
