@@ -52,9 +52,7 @@ let userForm = document.getElementById('registerForm');
 let userEntries = JSON.parse(localStorage.getItem('user-entries')) || []; // Initialize entries from storage
 
 // If there are existing entries, display them
-if (userEntries.length > 0) {
-    showStoredEntries();
-}
+showStoredEntries();
 
 // Event listeners for form submission
 userForm.addEventListener('submit', saveUserForm);
