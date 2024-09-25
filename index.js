@@ -1,52 +1,52 @@
-// Note: This script is deferred
-
-function getCurrentDateMinusNYears(n) {
-    const currentDate = new Date();
-    currentDate.setFullYear(currentDate.getFullYear() - n);
-    return currentDate.toISOString().split('T')[0];
+function validateDob(dob) {
+    const dobDate = new Date(dob);
+    const today = new Date();
+    const age = today.getFullYear() - dobDate.getFullYear();
+    const monthDiff = today.getMonth() - dobDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
+        age--;
+    }
+    return age >= 18 && age <= 55;
 }
 
-const dateInput = document.getElementById('dob');
-dateInput.setAttribute('min', getCurrentDateMinusNYears(55));
-dateInput.setAttribute('max', getCurrentDateMinusNYears(18));
-
-
-let saveUserForm = (event) => {
+document.getElementById('registrationForm').addEventListener('submit', function (event) {
     event.preventDefault();
+
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const dob = document.getElementById('dob').value;
-    const agreeTerms = document.getElementById('agreeTerms').checked;
-
-    let userEntry = {
-        name, email, password, dob, agreeTerms
+    const termsAccepted = document.getElementById('terms').checked;
+    if (!validateDob(dob)) {
+        alert("Your age must be between 18 and 55.");
+        return;
     }
-
-    userEntries.push(userEntry);
-    localStorage.setItem('user-entries', JSON.stringify(userEntries));
+    const data = {
+        name: name,
+        email: email,
+        password: password,
+        dob: dob,
+        termsAccepted: termsAccepted
+    };
+    localStorage.setItem('formData', JSON.stringify(data));
+    document.getElementById('registrationForm').reset();
+    loadData();
+});
+function loadData() {
+    const savedData = JSON.parse(localStorage.getItem('formData'));
+    if (savedData) {
+        const tableBody = document.getElementById('tableBody');
+        tableBody.innerHTML = `
+            <tr>
+                <td>${savedData.name}</td>
+                <td>${savedData.email}</td>
+                <td>${savedData.password}</td>
+                <td>${savedData.dob}</td>
+                <td>${savedData.termsAccepted ? 'Yes' : 'No'}</td>
+            </tr>
+        `;
+    }
 }
-
-
-function showStoredEntries() {
-    let table_body = document.getElementById('entries').getElementsByTagName('tbody')[0]
-
-    table_body.innerHTML = ''
-    JSON.parse(localStorage.getItem('user-entries')).forEach(item => {
-        const fields = ['name', 'email', 'password', 'dob', 'agreeTerms'];
-        const cells = fields.map(field => `<td class="">${item[field]}</td>`).join('');
-        table_body.innerHTML += `<tr class="text-center">${cells}</tr>`;
-    })
-}
-
-let userForm = document.getElementById('registerForm')
-let userEntries = JSON.parse(localStorage.getItem('user-entries'))
-
-if (!userEntries) {
-    userEntries = [];
-} else {
-    showStoredEntries()
-}
-
-userForm.addEventListener('submit', saveUserForm)
-userForm.addEventListener('submit', showStoredEntries)
+window.onload = function () {
+    loadData();
+};
