@@ -6,7 +6,7 @@ function validateDob(dob) {
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
         age--;
     }
-    return age >= 18 && age <= 55;
+    return age >= 18 && age <= 55;s
 }
 
 document.getElementById('registrationForm').addEventListener('submit', function (event) {
