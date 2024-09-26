@@ -2,45 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
+    <script defer src="index.js"></script>
+    <link href="output.css" rel="stylesheet">
+
+    <!-- Importing fonts from Google's Font Service -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
 </head>
-<body>
-    <h1>Registration Form</h1>
-    <form id="registrationForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" required><br><br>
+<body class="bg-blue-300">
+<div class="flex justify-center pt-4"
+     style="font-family: 'Hanken Grotesk',sans-serif">
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" required><br><br>
+    <form class="bg-white border-black border-2 rounded-lg p-8 space-y-4" id="registerForm">
+        <h2 class="text-2xl font-bold justify-center text-center pb-4 whitespace-nowrap">Registration Form</h2>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" required><br><br>
+        <div>
+            <label class="block text-lg font-medium" for="name">Name</label>
+            <input class="w-full border border-gray-300 rounded-lg p-2 mt-1" id="name" placeholder="Enter Full Name"
+                   required type="text">
+        </div>
 
-        <label for="dob">Date of Birth:</label>
-        <input type="date" id="dob" required><br><br>
+        <div>
+            <label class="block text-lg font-medium" for="email">Email</label>
+            <input class="w-full border border-gray-300 rounded-lg p-2 mt-1" id="email"
+                   placeholder="Enter email id"
+                   required type="email">
+        </div>
 
-        <label for="terms">Accept terms?</label>
-        <input type="checkbox" id="terms" required><br><br>
+        <div>
+            <label class="block text-lg font-medium" for="password">Password</label>
+            <input class="w-full border border-gray-300 rounded-lg p-2 mt-1" id="password" placeholder="Enter password"
+                   required type="password">
+        </div>
 
-        <button type="submit">Submit</button>
+        <div>
+            <label class="block text-lg font-medium" for="dob">Date of Birth</label>
+            <input class="border border-gray-300 rounded-lg p-2" id="dob" required type="date">
+        </div>
+
+        <div class="flex items-center">
+            <input class="form-checkbox text-blue-500" id="agreeTerms" required type="checkbox">
+            <label class="ml-2" for="agreeTerms">I have Accepted T&C</label>
+        </div>
+
+        <!-- Submit button -->
+        <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600" id="submit_button" type="submit">
+            Submit
+        </button>
+
     </form>
 
-    <h2>Saved Data</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>Dob</th>
-                <th>Accepted terms?</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody">
-        </tbody>
-    </table>
 
-    <script src="index.js"></script>
+    <div class="bg-white border-black border-2 rounded-lg p-8 space-y-4">
+        <h2 class="text-2xl font-bold justify-center text-center pb-4 whitespace-nowrap">Entries</h2>
+        <table class="table-auto w-full max-w-3xl border-collapse border border-gray-400" id="entries">
+            <thead>
+            <tr class="bg-gray-200">
+                <th class="px-4">Name</th>
+                <th class="px-4">Email</th>
+                <th class="px-4">Password</th>
+                <th class="px-4 whitespace-nowrap">Dob</th>
+                <th class="px-4 whitespace-nowrap">Accepted terms?</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
 </body>
 </html>
