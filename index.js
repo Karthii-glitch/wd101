@@ -1,4 +1,4 @@
-function validateDob(dob) {
+[11:56 pm, 25/9/2024] Deva: function validateDob(dob) {
     const dobDate = new Date(dob);
     const today = new Date();
     const age = today.getFullYear() - dobDate.getFullYear();
@@ -6,7 +6,7 @@ function validateDob(dob) {
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
         age--;
     }
-    return age >= 18 && age <= 55;s
+    return age >= 18 && age <= 55;
 }
 
 document.getElementById('registrationForm').addEventListener('submit', function (event) {
@@ -50,3 +50,4 @@ function loadData() {
 window.onload = function () {
     loadData();
 };
+[11:56 pm, 25/9/2024] Darani Karthik: 
